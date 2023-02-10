@@ -28,7 +28,7 @@ def carreraFormulario(request):
             formulario1 = CarreraFormulario(request.POST)
             if formulario1.is_valid():
                   info = formulario1.cleaned_data
-                  carrera = Carreras(nombre=info['nombre'], camada=info['camada'])
+                  carrera = Carreras(nombre=info['nombre'],camada=info['camada'])
                   carrera.save()
                   return  render (request, "App1/inicio.html")
 
