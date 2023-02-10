@@ -1,102 +1,47 @@
 from django.shortcuts import render
 from App1.models import *
-from App1.forms import *
+from App1.forms import CarreraFormulario
 
 # Create your views here.
 
-def ver_estudiantes(request):
+#------------------------------------------
+def inicio(request):
+      return render(request, "App1/inicio.html")
+
+def estudiante(request):
 
     todas= Estudiantes.objects.all()
-    return  render (request, "AppEstudiantes/estudiantes.html", {"todas": todas})
+    return  render (request, "App1/estudiantes.html")
 
- 
-def agregar_estudiantes(request):
- 
-      if request.method == "POST":
- 
-            miFormulario = EstudiantesFormulario(request.POST) # Aqui me llega la informacion del html
-            print(miFormulario)
- 
-            if miFormulario.is_valid():
-                  informacion = miFormulario.cleaned_data
-                  estudiante = Estudiantes(nombre=informacion["nombre"], carrera=informacion["carrera"])
-                  estudiante.save()
-                  return render(request, "AppEstudiantes/estudiantes.html")
-      else:
-            miFormulario = EstudiantesFormulario()
- 
-      return render(request, "AppEstudiantes/estudiantesFormulario.html", {"miFormulario": miFormulario})
-
-def buscar_estudiantes(request):
-     return  render (request, "AppEstudiantes/buscarEstudiantes.html")
-
-def resultadosEstudiantes(request):
-    nombreBusqueda = request.GET ["nombre"]
-    resultadosEstudiantes = Estudiantes.objects.filter(nombre_icontains=nombreBusqueda)
-    return  render (request, "AppEstudiantes/resultadosEstudiantes.html", {"info1":nombreBusqueda, "info2":resultadosEstudiantes})
 
  #Para Carreras.
 
-def ver_carreras(request):
+def carrera(request):
 
     todas= Carreras.objects.all()
-    return  render (request, "AppEstudiantes/carreras.html", {"todas": todas})
+    return  render (request, "App1/carreras.html")
 
- 
-def agregar_carreras(request):
- 
+def carreraFormulario(request):
+
       if request.method == "POST":
- 
-            miFormulario = CarrerasFormulario(request.POST) # Aqui me llega la informacion del html
-            print(miFormulario)
- 
-            if miFormulario.is_valid():
-                  informacion = miFormulario.cleaned_data
-                  carrera = Carreras(nombre=informacion["nombre"], duracion=informacion["duracion"])
+
+            formulario1 = CarreraFormulario(request.POST)
+            if formulario1.is_valid():
+                  info = formulario1.cleaned_data
+                  carrera = Carreras(nombre=info['nombre'], camada=info['camada'])
                   carrera.save()
-                  return render(request, "AppEstudiantes/carreras.html")
-      else:
-            miFormulario = CarrerasFormulario()
- 
-      return render(request, "AppEstudiantes/carrerasFormulario.html", {"miFormulario": miFormulario})
+                  return  render (request, "App1/inicio.html")
 
-def buscar_carreras(request):
-     return  render (request, "AppEstudiantes/buscarCarreras.html")
+            else: 
+                  formulario1 = CarreraFormulario()
 
-def resultadosCarreras(request):
-    nombreBusqueda = request.GET ["nombre"]
-    resultadosCarreras = Carreras.objects.filter(nombre_icontains=nombreBusqueda)
-    return  render (request, "AppEstudiantes/resultadosCarreras.html", {"info3":nombreBusqueda, "info4":resultadosCarreras})
+            return  render(request, "App1/carreraFormulario.html", {"form1":formulario1})
 
 #Para Profesores.
 
-def ver_profesores(request):
+def profesor(request):
 
     todas= Profesores.objects.all()
-    return  render (request, "AppEstudiantes/profesores.html", {"todas": todas})
+    return  render (request, "App1/profesores.html")
 
- 
-def agregar_profesores(request):
- 
-      if request.method == "POST":
- 
-            miFormulario = ProfesoresFormulario(request.POST) # Aqui me llega la informacion del html
-            print(miFormulario)
- 
-            if miFormulario.is_valid():
-                  informacion = miFormulario.cleaned_data
-                  profesor = Profesores(nombre=informacion["nombre"], carrera=informacion["carrera"])
-                  profesor.save()
-                  return render(request, "AppEstudiantes/profesores.html")
-      else:
-            miFormulario = ProfesoresFormulario()
- 
-      return render(request, "AppEstudiantes/profesoresFormulario.html", {"miFormulario": miFormulario})
-
-def buscar_profesores(request):
-     return  render (request, "AppEstudiantes/buscarProfesores.html")
-
-def resultadosProfesores(request):
-    nombreBusqueda = request.GET ["nombre"]
-    resultadosProfesores = Profesores.objects.filter(nombre_icontains=nombreBusqueda)
-    return  render (request, "AppEstudiantes/resultadosProfesores.html", {"info5":nombreBusqueda, "info6":resultadosProfesores})
+#Para buscar

@@ -8,7 +8,7 @@ class Estudiantes (models.Model):
 
 class Carreras (models.Model):
     nombre = models.CharField(max_length=50)
-    duracion = models.CharField(max_length=10)
+    camada = models.IntegerField()
 
 class Profesores (models.Model):
     nombre = models.CharField(max_length=50)

@@ -2,14 +2,14 @@ from django import forms
 
 # Create your forms here.
 
-class EstudiantesFormulario (forms.Form):
+class EstudianteFormulario (forms.Form):
     nombre = forms.CharField(max_length=50)
     carrera = forms.CharField(max_length=30)
 
-class CarrerasFormulario (forms.Form):
+class CarreraFormulario (forms.Form):
     nombre = forms.CharField(max_length=50)
-    duracion = forms.CharField(max_length=10)
+    camada = forms.IntegerField()
 
-class ProfesoresFormulario (forms.Form):
+class ProfesorFormulario (forms.Form):
     nombre = forms.CharField(max_length=50)
     carrera = forms.CharField(max_length=30)
