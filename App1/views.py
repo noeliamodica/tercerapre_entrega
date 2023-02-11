@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from App1.models import *
 from App1.forms import CarreraFormulario
 
@@ -32,10 +33,10 @@ def carreraFormulario(request):
                   carrera.save()
                   return  render (request, "App1/inicio.html")
 
-            else: 
-                  formulario1 = CarreraFormulario()
+      else: 
+            formulario1 = CarreraFormulario()
 
-            return  render(request, "App1/carreraFormulario.html", {"form1":formulario1})
+      return  render(request, "App1/carreraFormulario.html", {"form1":formulario1})
 
 #Para Profesores.
 
@@ -45,3 +46,19 @@ def profesor(request):
     return  render (request, "App1/profesores.html")
 
 #Para buscar
+
+def busquedaCamada (request):
+      return  render (request, "App1/busquedaCamada.html")
+
+def resultados (request):
+
+      if  request.GET["camada"]:
+            camada = request.GET['camada'] 
+            carrera = Carreras.objects.filter(camada__icontains=camada)
+            return render(request, "App1/resultados.html", {"nombre":carrera, "camada":camada})
+      else: 
+            respuesta = "No enviaste datos"
+
+
+      return  HttpResponse(respuesta)
+     
